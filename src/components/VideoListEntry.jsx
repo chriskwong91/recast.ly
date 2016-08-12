@@ -1,4 +1,4 @@
-var VideoListEntry = () => (
+var VideoListEntry = (props) => (
   <div className="video-list-entry">
     <div className="media-left media-middle">
       <img className="media-object" src="https://i.ytimg.com/vi/dQw4w9WgXcQ/default.jpg" alt="" />
