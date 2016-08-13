@@ -4,16 +4,69 @@ class App extends React.Component {
 
     this.state = {
       currentVideo: exampleVideoData[0],
-      videos: exampleVideoData
+      videos: exampleVideoData,
+      search: ''
     };
 
     this.click = this.click.bind(this);
+    this.userSearch = this.userSearch.bind(this);
+    this.userInput = this.userInput.bind(this);
   }
 
   click(video) {
     this.setState({
       currentVideo: video
     });
+  }
+
+  userSearch(e) {
+    this.setState({
+      search: e.target.value
+    });
+
+      
+      
+    /*console.log(e);
+    console.log(this);*/
+    //var criteria = ReactDOM.findDOMNode(this.refs.search);
+    // console.log($('.form-control').val());
+
+    /*var options = {
+      q: string,
+      maxResults: 5,
+      key: window.YOUTUBE_API_KEY,
+      part: 'snippet',
+      type: 'video',
+      videoEmbeddable: 'true'
+    };
+
+    this.props.searchYouTube(options,
+      function(data) {
+        this.setState({
+          currentVideo: data[0],
+          videos: data
+        });
+      }.bind(this));*/
+  }
+
+  userInput() {
+    console.log('pressed');
+    var options = {
+      q: this.state.search,
+      maxResults: 5,
+      key: window.YOUTUBE_API_KEY,
+      part: 'snippet',
+      type: 'video',
+      videoEmbeddable: 'true'
+    };
+
+    this.props.searchYouTube(options,
+      function(data) {
+        this.setState({
+          currentVideo: data[0],
+          videos: data
+        });
+      }.bind(this));
   }
 
   componentDidMount() {
@@ -26,7 +79,7 @@ class App extends React.Component {
       videoEmbeddable: 'true'
     };
 
-    this.props.search(options,
+    this.props.searchYouTube(options,
       function(data) {
         this.setState({
           currentVideo: data[0],
@@ -38,7 +91,7 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      <Nav />
+      <Nav search={this.userSearch} pressed={this.userInput}/>
       <div className="col-md-7">
         <VideoPlayer video={this.state.currentVideo}/>
       </div>
@@ -52,7 +105,7 @@ class App extends React.Component {
 
 App.propTypes = {
   videos: React.PropTypes.array.isRequired,
-  search: React.PropTypes.func.isRequired
+  searchYouTube: React.PropTypes.func.isRequired
 };
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
