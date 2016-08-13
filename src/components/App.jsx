@@ -5,14 +5,14 @@ class App extends React.Component {
     this.state = {
       currentVideo: exampleVideoData[0],
       videos: exampleVideoData
-      // playerVideo: function(index = 0) { return this.props.videos[index]},
-      // videoList: this.props.videos
     };
+    this.changeVideo = this.changeVideo.bind(this);
   }
-
+  
   changeVideo() {
+    console.log(this);
     this.setState({
-      currentVideo: function(index) { return exampleVideoData[index]; }
+      currentVideos: exampleVideoData[1]
     });
   }
 
@@ -24,23 +24,12 @@ class App extends React.Component {
         <VideoPlayer video={this.state.currentVideo}/>
       </div>
       <div className="col-md-5">
-        <VideoList videos={this.state.videos}/>
+        <VideoList videos={this.state.videos} handleClick={this.changeVideo}/>
       </div>
     </div>
     );
   }
 }
-// var App = () => (
-//   <div>
-//     <Nav />
-//     <div className="col-md-7">
-//       <VideoPlayer/>
-//     </div>
-//     <div className="col-md-5">
-//       <VideoList/>
-//     </div>
-//   </div>
-// );
 
 App.propTypes = {
   videos: React.PropTypes.array.isRequired
