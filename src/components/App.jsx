@@ -6,13 +6,13 @@ class App extends React.Component {
       currentVideo: exampleVideoData[0],
       videos: exampleVideoData
     };
-    this.changeVideo = this.changeVideo.bind(this);
+
+    this.click = this.click.bind(this);
   }
-  
-  changeVideo() {
-    console.log(this);
+
+  click(video) {
     this.setState({
-      currentVideos: exampleVideoData[1]
+      currentVideo: video
     });
   }
 
@@ -24,7 +24,7 @@ class App extends React.Component {
         <VideoPlayer video={this.state.currentVideo}/>
       </div>
       <div className="col-md-5">
-        <VideoList videos={this.state.videos} handleClick={this.changeVideo}/>
+        <VideoList videos={this.state.videos} onClick={this.click}/>
       </div>
     </div>
     );
