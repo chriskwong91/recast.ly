@@ -16,6 +16,25 @@ class App extends React.Component {
     });
   }
 
+  componentDidMount() {
+    var options = {
+      q: 'javascript',
+      maxResults: 5,
+      key: window.YOUTUBE_API_KEY,
+      part: 'snippet',
+      type: 'video',
+      videoEmbeddable: 'true'
+    };
+
+    this.props.search(options,
+      function(data) {
+        this.setState({
+          currentVideo: data[0],
+          videos: data
+        });
+      }.bind(this));
+  }
+
   render() {
     return (
     <div>
@@ -32,7 +51,8 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  videos: React.PropTypes.array.isRequired
+  videos: React.PropTypes.array.isRequired,
+  search: React.PropTypes.func.isRequired
 };
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
