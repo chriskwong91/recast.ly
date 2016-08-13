@@ -8,49 +8,27 @@ class App extends React.Component {
       search: ''
     };
 
-    this.click = this.click.bind(this);
-    this.userSearch = this.userSearch.bind(this);
-    this.userInput = this.userInput.bind(this);
+    this.titleClick = this.titleClick.bind(this);
+    this.userKeyPress = this.userKeyPress.bind(this);
   }
 
-  click(video) {
+  titleClick(video) {
     this.setState({
       currentVideo: video
     });
   }
 
-  userSearch(e) {
+  userKeyPress(e) {
     this.setState({
       search: e.target.value
+
     });
-
-      
-      
-    /*console.log(e);
-    console.log(this);*/
-    //var criteria = ReactDOM.findDOMNode(this.refs.search);
-    // console.log($('.form-control').val());
-
-    /*var options = {
-      q: string,
-      maxResults: 5,
-      key: window.YOUTUBE_API_KEY,
-      part: 'snippet',
-      type: 'video',
-      videoEmbeddable: 'true'
-    };
-
-    this.props.searchYouTube(options,
-      function(data) {
-        this.setState({
-          currentVideo: data[0],
-          videos: data
-        });
-      }.bind(this));*/
+    if (e.key === 'Enter') {
+      this.requestYouTube();
+    }
   }
 
-  userInput() {
-    console.log('pressed');
+  requestYouTube(e) {
     var options = {
       q: this.state.search,
       maxResults: 5,
@@ -91,12 +69,12 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      <Nav search={this.userSearch} pressed={this.userInput}/>
+      <Nav search={this.userKeyPress} pressed={this.requestYouTube}/>
       <div className="col-md-7">
         <VideoPlayer video={this.state.currentVideo}/>
       </div>
       <div className="col-md-5">
-        <VideoList videos={this.state.videos} onClick={this.click}/>
+        <VideoList videos={this.state.videos} onClick={this.titleClick}/>
       </div>
     </div>
     );

@@ -1,7 +1,7 @@
 var Search = (props) => (
   <div className="search-bar form-inline">
-    <input className="form-control" type="text" onChange={props.search}/>
-    <button className="btn hidden-sm-down" type="submit" onClick={props.pressed}>
+    <input className="form-control" type="text" onKeyPress={props.search}/>
+    <button type="submit" className="btn hidden-sm-down" onClick={props.pressed}>
       <span className="glyphicon glyphicon-search"></span>
     </button>
   </div> 
