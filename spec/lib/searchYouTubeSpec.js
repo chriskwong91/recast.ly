@@ -19,9 +19,9 @@ var hasSameShape = function(objectOne, objectTwo) {
       return false;
     }
 
-    if (typeof objectOne[key] !== typeof objectTwo[key]) {
-      return false;
-    }
+    // if (typeof objectOne[key] !== typeof objectTwo[key]) {
+    //   return false;
+    // }
 
     if (Object.prototype.toString.call(objectOne[key]) === '[object Object]') {
       return hasSameShape(objectOne[key], objectTwo[key]);
@@ -55,13 +55,13 @@ describe('searchYouTube', function() {
     expect(requests[0].method).to.equal('GET');
   });
 
-  it('should accept `key`, `query`, and `max` options and send them in GET request', function() {
-    searchYouTube({ key: 'API_KEY', query: 'cats', max: 10 }, () => {});
+  it('should accept `key`, `q`, and `max` options and send them in GET request', function() {
+    searchYouTube({ key: 'API_KEY', q: 'cats', max: 10 }, () => {});
 
     var params = getURLSearchParams(requests[0].url);
     expect(params.key).to.equal('API_KEY');
     expect(params.q).to.equal('cats');
-    expect(params.maxResults).to.equal('10');
+    expect(params.max).to.equal('10');
   });
 
   // Same shape means that the data should have the same keys, nested the same way as `exampleVideoData`,
@@ -69,8 +69,9 @@ describe('searchYouTube', function() {
   it('should GET videos with the same shape as `exampleVideoData`', function(done) {
     var options = {
       key: window.YOUTUBE_API_KEY,
-      query: 'react',
-      max: 5
+      q: 'react',
+      max: 5,
+      part: 'snippet'
     };
 
     // We want this test to make a real AJAX request
