@@ -5,11 +5,9 @@ class App extends React.Component {
     this.state = {
       currentVideo: exampleVideoData[0],
       videos: exampleVideoData,
-      search: ''
     };
 
     this.titleClick = this.titleClick.bind(this);
-    this.userKeyPress = this.userKeyPress.bind(this);
   }
 
   titleClick(video) {
@@ -18,19 +16,10 @@ class App extends React.Component {
     });
   }
 
-  userKeyPress(e) {
-    this.setState({
-      search: e.target.value
-
-    });
-    if (e.key === 'Enter') {
-      this.requestYouTube();
-    }
-  }
-
-  requestYouTube(e) {
+  requestYouTube(e, string) {
+    console.log(e);
     var options = {
-      q: this.state.search,
+      q: string,
       maxResults: 5,
       key: window.YOUTUBE_API_KEY,
       part: 'snippet',
@@ -69,7 +58,7 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      <Nav search={this.userKeyPress} pressed={this.requestYouTube}/>
+      <Nav search={this.requestYouTube.bind(this)} pressed={this.requestYouTube.bind(this)}/>
       <div className="col-md-7">
         <VideoPlayer video={this.state.currentVideo}/>
       </div>
